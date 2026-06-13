@@ -37,3 +37,6 @@ yarn-error.log*
 # local design / source assets (not part of the deployed site)
 /SVG icons/
 /WesDev_Build_Prompt_*.md
+
+.vercel
+.env*

@@ -1,0 +1,17 @@
+{
+  "eyebrow": "About",
+  "heading": "Custom-built web software, designed and shipped end to end.",
+  "paragraphs": [
+    "WesDev is the studio of Wesley — a developer who turns rough ideas into **production-grade websites and web apps**. Every build starts from a blank file: no page builders, no bloated templates, just clean architecture and code the next engineer can actually read.",
+    "I care about the unglamorous parts that make a site last: **fast load times, accessible markup, sane state management,** and SEO that earns real traffic. Design and engineering live under one roof, so the interface you sign off on is the interface that ships.",
+    "From first wireframe to the last deploy, you work directly with the person writing the code — **no hand-offs, no surprises.**"
+  ],
+  "image": null,
+  "imageAlt": "Portrait of Wesley, founder of WesDev",
+  "imagePlaceholder": "[ portrait.jpg ]",
+  "stats": [
+    { "value": 5, "suffix": "+", "label": "Years building" },
+    { "value": 30, "suffix": "+", "label": "Projects shipped" },
+    { "value": 100, "suffix": "%", "label": "Built from scratch" }
+  ]
+}

@@ -1,0 +1,5 @@
+# Blog posts (future use)
+
+Drop one `.mdx` file per post here. Each file uses gray-matter frontmatter
+(title, date, excerpt, ...) and may embed React components in its body.
+Parsing helpers live in `lib/content.ts`.

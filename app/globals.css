@@ -1,0 +1,179 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ *
+ * WesDev design tokens — OKLCH color space (build spec §2).
+ * These CSS custom properties are the single source of truth for color,
+ * spacing, radius, and typography. Tailwind theme tokens map to them.
+ * ------------------------------------------------------------------ */
+:root {
+  --bg: oklch(0.155 0.006 260);
+  --bg-2: oklch(0.185 0.007 260);
+  --surface: oklch(0.205 0.008 260);
+  --surface-2: oklch(0.235 0.009 260);
+  --line: oklch(0.3 0.01 260);
+  --line-soft: oklch(0.255 0.009 260);
+  --text: oklch(0.965 0.004 260);
+  --muted: oklch(0.74 0.01 260);
+  --faint: oklch(0.56 0.01 260);
+  --accent: oklch(0.885 0.185 128);
+  --accent-dim: oklch(0.8 0.16 128);
+  --accent-ink: oklch(0.3 0.1 128);
+
+  --maxw: 1180px;
+  --gut: clamp(20px, 5vw, 64px);
+  --r: 4px;
+}
+
+@layer base {
+  * {
+    @apply border-line;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-space-grotesk), system-ui, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  /* Respect reduced-motion: snap reveals visible, disable smooth scroll. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@layer components {
+  /* Container / gutter wrapper. */
+  .wrap {
+    max-width: var(--maxw);
+    margin-inline: auto;
+    padding-inline: var(--gut);
+  }
+
+  /* Eyebrow label + leading accent rule (introduces every section). */
+  .eyebrow {
+    font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 22px;
+    height: 1px;
+    background: var(--accent);
+    display: inline-block;
+  }
+
+  /* Nav links — mono, with an accent underline that scales in on hover. */
+  .navlink {
+    font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+    font-size: 13px;
+    color: var(--muted);
+    position: relative;
+    transition: color 0.2s ease;
+  }
+  .navlink::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 1px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .navlink:hover {
+    color: var(--text);
+  }
+  .navlink:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* Inline accent link in the contact headline — underline scales in on hover. */
+  .contact-link {
+    color: var(--accent);
+    position: relative;
+  }
+  .contact-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 4px;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+  }
+  .contact-link:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* Buttons — mono labels, sharp 4px, lime accent. */
+  .btn {
+    font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 9px 18px;
+    border-radius: var(--r);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    border: 1px solid var(--line);
+    transition:
+      transform 0.18s ease,
+      background 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease;
+  }
+  .btn-accent {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+  .btn-accent:hover {
+    transform: translateY(-2px);
+    background: var(--accent-dim);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+  }
+  .btn-ghost:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .btn-accent:hover,
+    .btn-ghost:hover {
+      transform: none;
+    }
+  }
+}

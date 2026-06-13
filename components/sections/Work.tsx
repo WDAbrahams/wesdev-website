@@ -19,7 +19,7 @@ export function Work({ projects }: { projects: WorkProject[] }) {
         <Reveal className="mb-14">
           <Eyebrow>Selected Work</Eyebrow>
           <h2 className="mt-4 max-w-[20ch] text-balance text-[clamp(28px,4vw,46px)] font-semibold leading-[1.05] tracking-[-0.02em]">
-            A few things I&apos;ve shipped recently.
+            A few things I&apos;ve been building.
           </h2>
         </Reveal>
 

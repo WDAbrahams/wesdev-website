@@ -46,8 +46,8 @@ export function Navbar() {
           <Image
             src="/images/wesdev-logo.png"
             alt="WesDev"
-            width={2760}
-            height={1400}
+            width={1406}
+            height={392}
             priority
             className="h-8 w-auto"
           />

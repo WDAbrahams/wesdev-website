@@ -40,7 +40,7 @@ export function Work({ projects }: { projects: WorkProject[] }) {
                       fill
                       loading="lazy"
                       sizes="(max-width: 760px) 100vw, 50vw"
-                      className="object-cover"
+                      className="object-contain p-8 transition-transform duration-300 ease-out group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
                     />
                   )}
                   <span className="absolute left-3.5 top-3.5 rounded-sm border border-line bg-bg px-2 py-1 font-mono text-[11px] text-faint">

@@ -8,8 +8,8 @@ tech:
   - Next.js
   - Tailwind CSS
   - SEO
-image: null
-imageAlt: CCSS business website
+image: /images/selected-work/ccss-logo.webp
+imageAlt: Clarissa Carsten Specialized Services (CCSS) logo
 url: 'https://ccss.co.za'
 ---
 

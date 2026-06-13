@@ -8,8 +8,8 @@ tech:
   - Next.js
   - Tailwind CSS
   - Responsive
-image: null
-imageAlt: Springbok Guest Farm website
+image: /images/selected-work/springbok-guest-farm-logo.webp
+imageAlt: Springbok Guest Farm logo
 ---
 
 Currently in development — a welcoming site for Springbok Guest Farm with

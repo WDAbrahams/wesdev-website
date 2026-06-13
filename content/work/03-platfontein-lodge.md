@@ -8,8 +8,8 @@ tech:
   - Next.js
   - Tailwind CSS
   - SEO
-image: null
-imageAlt: Platfontein Lodge & Conference Centre website
+image: /images/selected-work/platfontein-lodge-and-conference-centre-logo.webp
+imageAlt: Platfontein Lodge & Conference Centre logo
 ---
 
 In development — presenting Platfontein Lodge & Conference Centre's

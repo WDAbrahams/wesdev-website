@@ -7,7 +7,7 @@ import { SITE } from '@/lib/site';
  */
 export function ContactSidebar() {
   return (
-    <aside className="rounded border border-line bg-surface p-6 text-left">
+    <aside className="self-start rounded border border-line bg-surface p-6 text-left">
       <h3 className="font-mono text-[13px] uppercase tracking-[0.1em] text-faint">
         {SITE.name}
       </h3>

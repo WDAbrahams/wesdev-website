@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
+import Script from 'next/script';
 import './globals.css';
 
 /** Display / heading / body face — exposed as `--font-space-grotesk`. */
@@ -20,6 +21,9 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://wesdev.co.za';
+
+/** Google Analytics 4 measurement ID. */
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? 'G-G80MYP5CLY';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -99,6 +103,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         {children}
         <Analytics />
+        {/* Google Analytics (gtag.js) */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_ID}');
+          `}
+        </Script>
       </body>
     </html>
   );

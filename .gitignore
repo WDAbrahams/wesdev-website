@@ -33,3 +33,7 @@ yarn-error.log*
 # sitemap output
 /public/sitemap*.xml
 /public/robots.txt
+
+# local design / source assets (not part of the deployed site)
+/SVG icons/
+/WesDev_Build_Prompt_*.md

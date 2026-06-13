@@ -8,8 +8,8 @@ tech:
   - Next.js
   - Tailwind CSS
   - RSVP
-image: null
-imageAlt: Custom wedding websites
+image: /images/selected-work/wedding-logos.webp
+imageAlt: Custom wedding website monogram logos
 ---
 
 A set of personalised wedding websites built for couples — RSVP collection,

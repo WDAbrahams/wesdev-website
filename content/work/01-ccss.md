@@ -1,12 +1,13 @@
 ---
 order: 1
-title: CCSS
+title: Clarissa Carsten Specialized Services
 year: '2026'
 tag: Live site
 description: A custom-built business website — fast, fully responsive, and SEO-ready, live at ccss.co.za.
 tech:
-  - Next.js
-  - Tailwind CSS
+  - HTML
+  - JS
+  - CSS
   - SEO
 image: /images/selected-work/ccss-logo.webp
 imageAlt: Clarissa Carsten Specialized Services (CCSS) logo

@@ -2,16 +2,17 @@
   "eyebrow": "About",
   "heading": "Custom-built web software, designed and shipped end to end.",
   "paragraphs": [
-    "WesDev is the studio of Wesley — a developer who turns rough ideas into **production-grade websites and web apps**. Every build starts from a blank file: no page builders, no bloated templates, just clean architecture and code the next engineer can actually read.",
-    "I care about the unglamorous parts that make a site last: **fast load times, accessible markup, sane state management,** and SEO that earns real traffic. Design and engineering live under one roof, so the interface you sign off on is the interface that ships.",
-    "From first wireframe to the last deploy, you work directly with the person writing the code — **no hand-offs, no surprises.**"
+    "Hi — I'm Wesley and WesDev is my studio. I'm a **Cape Town-based developer** with design and flow at the centre of everything I build.",
+    "I work end to end, from first wireframe to final deploy, and I build everything from scratch. **No page builders, no bloated templates,** just clean code that the next engineer can actually read and a product that works for the people using it.",
+    "I care about the unglamorous parts that make a site last: **fast load times, accessible markup, sane state management,** and SEO that earns real traffic. Design and engineering live under one roof, so what you sign off on is what ships.",
+    "You work directly with me throughout. **No hand-offs, no surprises,** just a build that goes from rough idea to something you're proud to put live."
   ],
-  "image": null,
+  "image": "/images/wesley-portrait.webp",
   "imageAlt": "Portrait of Wesley, founder of WesDev",
   "imagePlaceholder": "[ portrait.jpg ]",
   "stats": [
-    { "value": 5, "suffix": "+", "label": "Years building" },
-    { "value": 30, "suffix": "+", "label": "Projects shipped" },
+    { "value": 12, "suffix": "+", "label": "Years of design" },
+    { "value": 2, "suffix": "+", "label": "Years of building" },
     { "value": 100, "suffix": "%", "label": "Built from scratch" }
   ]
 }

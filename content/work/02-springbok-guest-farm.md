@@ -8,6 +8,7 @@ tech:
   - Next.js
   - Tailwind CSS
   - Responsive
+  - SEO
 image: /images/selected-work/springbok-guest-farm-logo.webp
 imageAlt: Springbok Guest Farm logo
 ---

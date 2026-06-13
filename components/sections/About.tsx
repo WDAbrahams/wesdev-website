@@ -82,7 +82,7 @@ export function About({ about }: { about: AboutContent }) {
                 fill
                 priority
                 sizes="(max-width: 820px) 360px, 40vw"
-                className="object-cover"
+                className="object-cover object-right-top"
               />
             )}
             <span className="absolute left-3 top-3 h-[18px] w-[18px] border-[1.5px] border-b-0 border-r-0 border-accent" />

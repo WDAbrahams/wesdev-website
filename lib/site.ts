@@ -8,7 +8,7 @@ export const SITE = {
   name: 'WesDev',
   tagline: 'Built from scratch · No templates',
   email: 'wesleydeanabrahams@gmail.com',
-  phone: '061 494 7771',
+  phone: '+27 61 494 7771',
   /** Public social profiles. Empty until WesDev has live profiles to link. */
   socials: [] as { label: string; href: string }[],
 } as const;

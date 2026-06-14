@@ -1,7 +1,7 @@
 /**
  * Central business / contact details for WesDev.
  *
- * The contact form is delivered via Web3Forms (see `app/api/contact/route.ts`),
+ * The contact form is delivered via Web3Forms (see `components/sections/Contact.tsx`),
  * which routes submissions to the address registered against the access key.
  */
 export const SITE = {

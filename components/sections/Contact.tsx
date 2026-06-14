@@ -14,11 +14,21 @@ import type { ContactFormPayload } from '@/types';
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
 /**
+ * Web3Forms only accepts submissions from the client side on the free plan
+ * (server-side calls require Pro), so the form posts directly to their API.
+ * Access keys are public by design — they are meant to be embedded in
+ * client-side forms — so shipping a default fallback is safe.
+ */
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+const WEB3FORMS_ACCESS_KEY =
+  process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? '833eab08-7ec5-4243-904f-46376547f118';
+
+/**
  * Contact + Footer section (build spec §3.6). Centered CTA headline with an
  * accent-underlined link, a social/contact button row, a functional contact
- * form (posts to `/api/contact`, delivered via Web3Forms), the
- * {@link ContactSidebar}, and the {@link Footer}. A large soft accent glow rises
- * from the bottom center.
+ * form (posts directly to Web3Forms, which delivers it to the inbox tied to the
+ * access key), the {@link ContactSidebar}, and the {@link Footer}. A large soft
+ * accent glow rises from the bottom center.
  */
 export function Contact() {
   const [status, setStatus] = useState<Status>('idle');
@@ -32,21 +42,32 @@ export function Contact() {
     const form = e.currentTarget;
     const data = new FormData(form);
     const payload: ContactFormPayload = {
-      name: String(data.get('name') ?? ''),
-      email: String(data.get('email') ?? ''),
-      phone: String(data.get('phone') ?? ''),
-      message: String(data.get('message') ?? ''),
+      name: String(data.get('name') ?? '').trim(),
+      email: String(data.get('email') ?? '').trim(),
+      phone: String(data.get('phone') ?? '').trim(),
+      message: String(data.get('message') ?? '').trim(),
     };
 
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch(WEB3FORMS_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New project enquiry from ${payload.name}`,
+          from_name: 'WesDev Website',
+          name: payload.name,
+          email: payload.email,
+          ...(payload.phone ? { phone: payload.phone } : {}),
+          message: payload.message,
+          replyto: payload.email,
+        }),
       });
-      if (!res.ok) {
-        const body = (await res.json().catch(() => null)) as { error?: string } | null;
-        throw new Error(body?.error ?? 'Something went wrong. Please try again.');
+      const body = (await res.json().catch(() => null)) as
+        | { success?: boolean; message?: string }
+        | null;
+      if (!res.ok || !body?.success) {
+        throw new Error(body?.message ?? 'Something went wrong. Please try again.');
       }
       setStatus('success');
       form.reset();

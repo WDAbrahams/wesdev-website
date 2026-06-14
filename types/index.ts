@@ -57,7 +57,7 @@ export interface WorkProject {
   url?: string;
 }
 
-/** Payload accepted by the contact API route (`/app/api/contact/route.ts`). */
+/** Fields collected by the contact form (`components/sections/Contact.tsx`). */
 export interface ContactFormPayload {
   name: string;
   email: string;

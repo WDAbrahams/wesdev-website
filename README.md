@@ -182,7 +182,7 @@ DNS changes can take up to 48 hours to propagate.
 
 | Variable                | Required | Description                                                  |
 | ----------------------- | -------- | ------------------------------------------------------------ |
-| `WEB3FORMS_ACCESS_KEY`  | No       | Web3Forms access key for the contact form (falls back to the bundled project key if unset). |
+| `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` | No | Web3Forms access key for the contact form, posted from the browser (falls back to the bundled project key if unset). |
 | `NEXT_PUBLIC_SITE_URL`  | Yes      | Public site URL — canonical/OG tags + sitemap base.          |
 
 The contact form delivers to the inbox registered against the Web3Forms access

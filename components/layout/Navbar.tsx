@@ -82,7 +82,7 @@ export function Navbar() {
       <div
         id="mobile-menu"
         className={cn(
-          'grid overflow-hidden transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] min-[721px]:hidden',
+          'grid overflow-hidden transition-[grid-template-rows,opacity] duration-300 ease-in-out min-[721px]:hidden',
           open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0',
         )}
       >

@@ -93,7 +93,7 @@ export function About({ about }: { about: AboutContent }) {
                 src={about.image}
                 alt={about.imageAlt}
                 fill
-                priority
+                loading="lazy"
                 sizes="(max-width: 820px) 360px, 40vw"
                 className="object-cover object-right-top"
               />

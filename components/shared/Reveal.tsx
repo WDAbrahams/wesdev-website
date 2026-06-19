@@ -1,6 +1,6 @@
 'use client';
 
-import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useRef, useState, type ElementType } from 'react';
 import { cn } from '@/lib/utils';
 
 interface RevealProps {
@@ -12,37 +12,47 @@ interface RevealProps {
   className?: string;
 }
 
-const DELAY_MAP: Record<number, number> = { 0: 0, 1: 0.08, 2: 0.16, 3: 0.24 };
-
 /**
  * Viewport-triggered fade + upward-slide reveal (build spec §6).
  *
- * Nothing animates off-screen — the effect fires once when the element enters
- * the viewport. When `prefers-reduced-motion` is set the content renders
- * immediately in its visible state, so it is never trapped hidden.
+ * A lightweight IntersectionObserver toggles the `.wd-reveal-in` class (the
+ * transition itself lives in globals.css) the first time the element enters the
+ * viewport — no animation library in the bundle. When `prefers-reduced-motion`
+ * is set the CSS snaps the content visible, so it is never trapped hidden, and
+ * browsers without IntersectionObserver fall back to immediately visible.
  */
 export function Reveal({ children, delay = 0, as = 'div', className }: RevealProps) {
-  const reduceMotion = useReducedMotion();
-  const MotionTag = motion[as];
+  const ref = useRef<HTMLElement>(null);
+  const [shown, setShown] = useState(false);
 
-  if (reduceMotion) {
-    const Tag = as;
-    return <Tag className={className}>{children}</Tag>;
-  }
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (typeof IntersectionObserver === 'undefined') {
+      setShown(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting) {
+          setShown(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.15 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
+  const Tag = as as ElementType;
   return (
-    <MotionTag
-      className={cn(className)}
-      initial={{ opacity: 0, y: 26 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{
-        duration: 0.7,
-        delay: DELAY_MAP[delay],
-        ease: [0.16, 1, 0.3, 1],
-      }}
+    <Tag
+      ref={ref}
+      data-reveal={delay}
+      className={cn('wd-reveal', shown && 'wd-reveal-in', className)}
     >
       {children}
-    </MotionTag>
+    </Tag>
   );
 }

@@ -4,18 +4,25 @@ import { Analytics } from '@vercel/analytics/next';
 import Script from 'next/script';
 import './globals.css';
 
-/** Display / heading / body face — exposed as `--font-space-grotesk`. */
+/**
+ * Display / heading / body face — exposed as `--font-space-grotesk`.
+ * Weights trimmed to those actually used: 400 (body), 500 (font-medium),
+ * 600 (headings). `next/font` self-hosts and preloads these automatically.
+ */
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600'],
   variable: '--font-space-grotesk',
   display: 'swap',
 });
 
-/** Eyebrow / label / mono face — exposed as `--font-jetbrains-mono`. */
+/**
+ * Eyebrow / label / mono face — exposed as `--font-jetbrains-mono`.
+ * Only 400 (links/labels) and 500 (eyebrow, buttons) are used in the UI.
+ */
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
+  weight: ['400', '500'],
   variable: '--font-jetbrains-mono',
   display: 'swap',
 });
@@ -103,12 +110,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         {children}
         <Analytics />
-        {/* Google Analytics (gtag.js) */}
+        {/* Google Analytics (gtag.js). Loaded lazily (on idle/after load) so it
+            doesn't compete for the main thread during the critical load window —
+            keeps TBT down without losing pageview tracking. */}
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-analytics" strategy="lazyOnload">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}

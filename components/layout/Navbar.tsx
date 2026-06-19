@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -72,44 +71,46 @@ export function Navbar() {
           onClick={() => setOpen((v) => !v)}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
+          aria-controls="mobile-menu"
           className="text-text transition-colors hover:text-accent min-[721px]:hidden"
         >
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
       </div>
 
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
-            className="overflow-hidden border-t border-line-soft bg-[color-mix(in_oklch,var(--bg)_92%,transparent)] backdrop-blur-[14px] min-[721px]:hidden"
-          >
-            <div className="flex flex-col gap-1 px-[var(--gut)] py-5">
-              {LINKS.map((link) => (
-                <a
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="py-2 font-mono text-sm text-muted transition-colors hover:text-accent"
-                >
-                  {link.label}
-                </a>
-              ))}
-              <a
-                href="#contact"
-                onClick={() => setOpen(false)}
-                className="btn btn-accent mt-2 w-fit"
-              >
-                Get in touch
-              </a>
-            </div>
-          </motion.div>
+      {/* Mobile menu — CSS grid-rows height transition (no animation library). */}
+      <div
+        id="mobile-menu"
+        className={cn(
+          'grid overflow-hidden transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] min-[721px]:hidden',
+          open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0',
         )}
-      </AnimatePresence>
+      >
+        <div
+          inert={!open || undefined}
+          className="min-h-0 overflow-hidden border-t border-line-soft bg-[color-mix(in_oklch,var(--bg)_92%,transparent)] backdrop-blur-[14px]"
+        >
+          <div className="flex flex-col gap-1 px-[var(--gut)] py-5">
+            {LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="py-2 font-mono text-sm text-muted transition-colors hover:text-accent"
+              >
+                {link.label}
+              </a>
+            ))}
+            <a
+              href="#contact"
+              onClick={() => setOpen(false)}
+              className="btn btn-accent mt-2 w-fit"
+            >
+              Get in touch
+            </a>
+          </div>
+        </div>
+      </div>
     </nav>
   );
 }

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { useInView, useReducedMotion } from 'framer-motion';
 import { Eyebrow } from '@/components/shared/Eyebrow';
 import { Reveal } from '@/components/shared/Reveal';
 import type { AboutContent, AboutStat } from '@/types';
@@ -27,28 +26,42 @@ function renderParagraph(text: string): React.ReactNode[] {
 /** Single stat cell whose digits count up once scrolled into view. */
 function StatCell({ stat }: { stat: AboutStat }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.5 });
-  const reduceMotion = useReducedMotion();
-  const [n, setN] = useState(reduceMotion ? stat.value : 0);
+  const [n, setN] = useState(0);
 
   useEffect(() => {
-    if (!inView || reduceMotion) {
-      if (reduceMotion) setN(stat.value);
+    const el = ref.current;
+    if (!el) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion || typeof IntersectionObserver === 'undefined') {
+      setN(stat.value);
       return;
     }
-    const duration = 1100;
-    const start = performance.now();
+
     let raf = 0;
-    const tick = (now: number) => {
-      const t = Math.min(1, (now - start) / duration);
-      // easeOutCubic
-      const eased = 1 - Math.pow(1 - t, 3);
-      setN(Math.round(eased * stat.value));
-      if (t < 1) raf = requestAnimationFrame(tick);
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries[0]?.isIntersecting) return;
+        io.disconnect();
+        const duration = 1100;
+        const start = performance.now();
+        const tick = (now: number) => {
+          const t = Math.min(1, (now - start) / duration);
+          // easeOutCubic
+          const eased = 1 - Math.pow(1 - t, 3);
+          setN(Math.round(eased * stat.value));
+          if (t < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+      },
+      { threshold: 0.5 },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
     };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [inView, reduceMotion, stat.value]);
+  }, [stat.value]);
 
   return (
     <div ref={ref} className="bg-bg px-[18px] py-5">
